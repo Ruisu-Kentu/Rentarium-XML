@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../css/registration.css">
+    <title>Registration Page</title>
+</head>
+<body>
+
+    <div class="container">
+        <nav class="navbar">
+            <div class="container">
+                <a href="login.html" class="lead"><i class="fa fa-arrow-left"></i> BACK</a>
+            </div>
+        </nav> 
+               <div class="column1">
+                       
+             
+
+        <div class="box">
+            <div class="row">
+                <div class="column2">
+                    <div class="details">
+                        <h1>Registration Form</h1>
+                        <form action="" method="POST">
+                            <div class="details personal">
+                                <h2>Personal Details</h2>
+                                <div class="fields">
+                                    <div class="input-field">
+                                        <label>First Name:</label>
+                                        <input type="text" placeholder="Enter your first name" name="firstname" required />
+                                        <label>Last Name:</label>
+                                        <input type="text" placeholder="Enter your last name" name="lastname" required />
+                                    </div>
+                                    <div class="input-field">
+                                        <label>Mobile Number:</label>
+                                        <input type="number" placeholder="Eg: 9868743210" name="phNo" title="Must be 10 digits" required />
+                                        <label>Date of Birth:</label>
+                                        <input type="date" name="dob" required />
+                                    </div>
+                                    <div class="input-field">
+                                        <label>Gender:</label>
+                                        <label>Male</label>
+                                        <input type="radio" name="gender" value="M">
+                                        <label>Female</label>
+                                        <input type="radio" name="gender" value="F">
+                                        <label>Others</label>
+                                        <input type="radio" name="gender" value="O">
+                                        <label>Occupation:</label>
+                                        <input type="text" placeholder="Eg: Teacher" name="occupation" required />
+                                    </div>
+                                    <div class="input-field">
+                                        <label>Email id:</label>
+                                        <input type="email" placeholder="Eg: name@example.com" name="email" required />
+                                    </div>
+                                    <div class="input-field">
+                                        <label>Password:</label>
+                                        <input type="password" placeholder="Enter a Password" name="pswd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number, one uppercase, and one lowercase letter, and at least 8 characters" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="subBtn" type="submit" value="Register" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+
+
+    @import url('https://fonts.googleapis.com/css?family=Sofia');
+@font-face {
+  font-family: Algerian;
+  font-family: Lucida;
+  src: url(sansation_light.woff);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Alegreya;
+}
+
+body {
+    background: rgb(37, 218, 241);
+}
+
+.navbar {
+  position: fixed;
+  padding-top: 20px; 
+  background-color: transparent;
+}
+
+.lead {
+    font-size: 24px;
+    font-family: Lucida;
+    color: rgb(0, 0, 0);
+    margin-left: 30px;
+    text-decoration: none;
+}
+
+.box { 
+    position: relative; 
+    top: 70px;
+    left: calc(50% - 520px);
+    width: 1040px;
+    height: 480px;
+    background: rgb(2, 240, 228);
+    color: #000;
+    box-sizing: border-box;
+    border: 1px solid black;
+    box-shadow: 3px 3px 8px skyblue;
+    border-radius: 3%;
+    padding: 10px;
+}
+
+.image {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    height: 482px;
+    width: 385px;
+    border-radius: 3%;
+    box-sizing: border-box;
+    border: 1px solid black;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.form-image {
+    width: 40%;
+    background-image: url("register.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.row .column2 {
+
+   float: right;
+   width: 665px;
+   padding-left: 35px;
+}
+
+.row .column1 {
+  float: left;
+  width: 385px;
+  padding: 0;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.details h1 , h2{
+    margin-bottom: 24px;
+}
+
+.details h1 {
+    margin-left: 146px;
+    font-size: 38px;
+    font-family: Lucida;
+}
+
+.details .input-field, .input-field7 {
+    font-size: 18px;
+    margin-bottom: 21px;
+    font-family: cursive;
+    font-weight: bold;
+}
+
+.input-field input[type="text"] , input[type="date"], input[type="number"], input[type="password"], input[type="email"]
+{
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    outline: none;
+    height: 24px;
+    color: #000;
+    font-size: 18px;
+    font-family: Lucida;
+}
+
+.input-field input[placeholder="dd/mm/yyyy"]
+{
+    font-size: 18px;
+    font: lighter;
+    color: grey;
+}
+
+.input-field input[type=radio] 
+{ 
+    accent-color: rgb(214, 13, 13);
+}
+
+.input-field .l1, .l2 {
+    width: 185px ;
+}
+
+.input-field .l3 {
+    width: 150px;
+}
+
+.input-field .l4 {
+    width: 170px;
+}
+
+.input-field .occupation {
+    margin-left: 20px;
+}
+
+.input-field #occ {
+    width: 180px;
+}
+
+.input-field .l6 {
+    width: 260px;
+}
+
+.input-field .l8 {
+    margin-left: 40px;
+}
+
+.input-field #room_no {
+    width: 100px;
+}
+
+.input-field .female, .others {
+    margin-left: 10px;
+}
+
+.input-field .male {
+    margin-left: 2px;
+}
+
+.input-field .lb2 , .lb4{
+    margin-left: 44px;
+}
+
+.input-field7 .l7{
+    width: 175px ;
+}
+
+.input-field7 .pswd {
+    margin-left: 22px;
+}
+
+.input-field7 {
+    margin-bottom:7px;
+}
+
+.fields .message {
+    font-size: 11px;
+    display: inline;
+    visibility: visible;
+}
+
+.fields #message .invalid {
+    font-family: Lucida;
+    display: inline;
+    color: #000;
+}
+
+.details .subBtn {
+    height: 60px;
+    width: 120px;
+    background: rgb(9, 155, 192);
+    color: #fff;
+    border: 1px solid #000;
+    border-radius: 15%;
+    text-align: center;
+    font-size: 20px;
+    font-family: Lucida;
+    align-items: center;
+    box-shadow: 2px 2px 4px #000;
+    margin-left: 38%;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    margin-top: -5px;
+}
+
+input[type="submit"]:hover {
+    color: #008080;
+    font-weight: bold;
+}
+
+.msg1 {
+    color:white; 
+    position:fixed; 
+    z-index: 9; 
+    top:13px; 
+    left:calc(50% - 100px); 
+    font-size:22px;
+    -webkit-animation: cssAnimation 5s forwards; 
+    animation: cssAnimation 5s forwards;
+}
+
+@keyframes cssAnimation {
+    0%   {opacity: 1;}
+	80%   {opacity: 0.8;}
+	90%  {opacity: 0.3;}
+    100% {opacity: 0;}
+}
+
+@-webkit-keyframes cssAnimation {
+    0%   {opacity: 1;}
+	80%   {opacity: 0.8;}
+	90%  {opacity: 0.3;}
+    100% {opacity: 0;}
+}
+</style>
+
+
+</body>
+</html>

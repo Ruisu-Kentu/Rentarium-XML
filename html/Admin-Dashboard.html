@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentarium - Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/admin-dashboard.css">
+    
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">RENTARIUM</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            <span class="nav-icon">📊</span>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">🏢</span>
+                            <span class="nav-text">Units Management</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">👥</span>
+                            <span class="nav-text">Tenants</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">💳</span>
+                            <span class="nav-text">Payments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">📋</span>
+                            <span class="nav-text">Requests</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">📈</span>
+                            <span class="nav-text">Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon">⚙️</span>
+                            <span class="nav-text">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-title">
+                    <h1>Landlord Dashboard</h1>
+                    <p>Welcome back! Here's what's happening with your properties today.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">LA</div>
+                    <div>
+                        <div style="font-weight: 600; color: #1e293b;">Landlord Admin</div>
+                        <div style="font-size: 12px; color: #64748b;">admin@rentarium.com</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">🏢</div>
+                    </div>
+                    <div class="stat-value">48</div>
+                    <div class="stat-label">Total Units</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">✓</div>
+                    </div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Occupied Units</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">👥</div>
+                    </div>
+                    <div class="stat-value">56</div>
+                    <div class="stat-label">Active Tenants</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">📋</div>
+                    </div>
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Pending Requests</div>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Units Overview -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Units Overview</h3>
+                        <button class="btn btn-primary">+ Add Unit</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Unit #</th>
+                                <th>Type</th>
+                                <th>Tenant</th>
+                                <th>Rent</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>A-101</td>
+                                <td>1 Bedroom</td>
+                                <td>John Smith</td>
+                                <td>₱15,000</td>
+                                <td><span class="status-badge occupied">Occupied</span></td>
+                            </tr>
+                            <tr>
+                                <td>A-102</td>
+                                <td>Studio</td>
+                                <td>Maria Garcia</td>
+                                <td>₱12,000</td>
+                                <td><span class="status-badge occupied">Occupied</span></td>
+                            </tr>
+                            <tr>
+                                <td>B-201</td>
+                                <td>2 Bedroom</td>
+                                <td>-</td>
+                                <td>₱22,000</td>
+                                <td><span class="status-badge available">Available</span></td>
+                            </tr>
+                            <tr>
+                                <td>B-202</td>
+                                <td>1 Bedroom</td>
+                                <td>James Lee</td>
+                                <td>₱16,500</td>
+                                <td><span class="status-badge occupied">Occupied</span></td>
+                            </tr>
+                            <tr>
+                                <td>C-301</td>
+                                <td>Studio</td>
+                                <td>-</td>
+                                <td>₱11,500</td>
+                                <td><span class="status-badge maintenance">Maintenance</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Activity</h3>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <div class="activity-icon payment">💳</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Payment Received</div>
+                                <div class="activity-time">John Smith - Unit A-101</div>
+                                <div class="activity-time">2 hours ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon request">📋</div>
+                            <div class="activity-content">
+                                <div class="activity-title">New Rental Request</div>
+                                <div class="activity-time">Sarah Johnson - Unit B-201</div>
+                                <div class="activity-time">5 hours ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon update">🔄</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Unit Status Updated</div>
+                                <div class="activity-time">Unit C-301 - Maintenance</div>
+                                <div class="activity-time">1 day ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon payment">💳</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Payment Verified</div>
+                                <div class="activity-time">Maria Garcia - Unit A-102</div>
+                                <div class="activity-time">2 days ago</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Pending Requests -->
+            <div class="content-card requests-section">
+                <div class="card-header">
+                    <h3 class="card-title">Pending Rental Requests</h3>
+                </div>
+                <div class="request-card">
+                    <div class="request-info">
+                        <h4>Sarah Johnson - Unit B-201</h4>
+                        <p>2 Bedroom • Requested 3 days ago • Move-in: Jan 15, 2025</p>
+                    </div>
+                    <div class="request-actions">
+                        <button class="btn btn-approve">Approve</button>
+                        <button class="btn btn-decline">Decline</button>
+                    </div>
+                </div>
+                <div class="request-card">
+                    <div class="request-info">
+                        <h4>Michael Chen - Unit D-402</h4>
+                        <p>Studio • Requested 1 day ago • Move-in: Jan 20, 2025</p>
+                    </div>
+                    <div class="request-actions">
+                        <button class="btn btn-approve">Approve</button>
+                        <button class="btn btn-decline">Decline</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

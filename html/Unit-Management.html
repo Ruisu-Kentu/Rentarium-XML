@@ -1,365 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rentarium - Units Management</title>
-    <link rel="stylesheet" href="../css/unit-management.css">
- 
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rentarium - Units Management</title>
+  <link rel="stylesheet" href="../css/unit-management.css">
+  
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">RENTARIUM</div>
-            <nav>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <span class="nav-icon">📊</span>
-                            <span class="nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link active">
-                            <span class="nav-icon">🏢</span>
-                            <span class="nav-text">Units Management</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <span class="nav-icon">👥</span>
-                            <span class="nav-text">Tenants</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <span class="nav-icon">💳</span>
-                            <span class="nav-text">Payments</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <span class="nav-icon">📋</span>
-                            <span class="nav-text">Requests</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <span class="nav-icon">📈</span>
-                            <span class="nav-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <span class="nav-icon">⚙️</span>
-                            <span class="nav-text">Settings</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo">RENTARIUM</div>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="../html/Admin-Dashboard.html" class="nav-link"><span class="nav-icon">📊</span><span>Dashboard</span></a></li>
+          <li><a href="#" class="nav-link active"><span class="nav-icon">🏢</span><span>Units Management</span></a></li>
+          <li><a href="#" class="nav-link"><span class="nav-icon">👥</span><span>Tenants</span></a></li>
+          <li><a href="#" class="nav-link"><span class="nav-icon">💳</span><span>Payments</span></a></li>
+          <li><a href="#" class="nav-link"><span class="nav-icon">📋</span><span>Requests</span></a></li>
+          <li><a href="#" class="nav-link"><span class="nav-icon">📈</span><span>Reports</span></a></li>
+          <li><a href="#" class="nav-link"><span class="nav-icon">⚙️</span><span>Settings</span></a></li>
+        </ul>
+      </nav>
+    </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header -->
-            <header class="header">
-                <div class="header-top">
-                    <div class="header-title">
-                        <h1>Units Management</h1>
-                        <p>Add, update, remove, and monitor all apartment units</p>
-                    </div>
-                    <div class="header-actions">
-                        <button class="btn btn-secondary" onclick="exportUnits()">📥 Export</button>
-                        <button class="btn btn-primary" onclick="openAddUnitModal()">+ Add New Unit</button>
-                    </div>
-                </div>
-                
-                <!-- Filters -->
-                <div class="filters-section">
-                    <div class="search-box">
-                        <input type="text" placeholder="🔍 Search by unit number, tenant name, or type..." id="searchInput">
-                    </div>
-                    <div class="filter-group">
-                        <select class="filter-select" id="statusFilter">
-                            <option value="all">All Status</option>
-                            <option value="available">Available</option>
-                            <option value="occupied">Occupied</option>
-                            <option value="maintenance">Maintenance</option>
-                            <option value="reserved">Reserved</option>
-                        </select>
-                        <select class="filter-select" id="typeFilter">
-                            <option value="all">All Types</option>
-                            <option value="studio">Studio</option>
-                            <option value="1br">1 Bedroom</option>
-                            <option value="2br">2 Bedroom</option>
-                            <option value="3br">3 Bedroom</option>
-                        </select>
-                    </div>
-                </div>
-            </header>
+    <main class="main-content">
+      <header class="header">
+        <div class="header-top">
+          <div class="header-title">
+            <h1>Units Management</h1>
+            <p>Manage apartment units — add, edit, remove, and monitor.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary" id="exportCsvBtn">📥 Export</button>
+            <button class="btn btn-secondary" id="exportXmlBtn">🗎 Export XML</button>
+            <label class="btn btn-secondary" style="display:inline-block;cursor:pointer;">
+              🔁 Import XML
+              <input type="file" id="xmlFileInput" accept=".xml" style="display:none">
+            </label>
+            <button class="btn btn-primary" id="addUnitBtn">+ Add New Unit</button>
+            <button class="btn" id="resetSampleBtn" title="Reset to sample data" style="background:#fff;border:1px solid #e5e7eb">Reset</button>
+          </div>
+        </div>
 
-            <!-- Stats Summary -->
-            <div class="stats-summary">
-                <div class="stat-box">
-                    <div class="stat-label">Total Units</div>
-                    <div class="stat-value">48</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">Occupied</div>
-                    <div class="stat-value">42</div>
-                    <div class="stat-percentage">87.5% occupancy</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">Available</div>
-                    <div class="stat-value">4</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">Maintenance</div>
-                    <div class="stat-value">2</div>
-                </div>
-            </div>
+        <div class="filters-section" style="margin-top:12px">
+          <div class="search-box">
+            <input id="searchInput" type="text" placeholder="🔍 Search by unit number, tenant name, or type...">
+          </div>
+          <div class="filter-group" style="display:flex;gap:8px">
+            <select id="statusFilter" class="filter-select">
+              <option value="all">All Status</option>
+              <option value="available">Available</option>
+              <option value="occupied">Occupied</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="reserved">Reserved</option>
+            </select>
+            <select id="typeFilter" class="filter-select">
+              <option value="all">All Types</option>
+              <option value="studio">Studio</option>
+              <option value="1br">1 Bedroom</option>
+              <option value="2br">2 Bedroom</option>
+              <option value="3br">3 Bedroom</option>
+            </select>
+          </div>
+        </div>
+      </header>
 
-            <!-- Units Table -->
-            <div class="content-card">
-                <div class="card-header">
-                    <h3 class="card-title">All Units (48)</h3>
-                    <div class="view-toggle">
-                        <button class="view-btn active">Table View</button>
-                        <button class="view-btn">Grid View</button>
-                    </div>
-                </div>
+      <div class="stats-summary" id="statsSummary">
+        <!-- Stats inserted dynamically -->
+      </div>
 
-                <table class="units-table">
-                    <thead>
-                        <tr>
-                            <th>Unit</th>
-                            <th>Type</th>
-                            <th>Tenant</th>
-                            <th>Rent (₱)</th>
-                            <th>Status</th>
-                            <th>Move-in Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="unit-info">
-                                    <div class="unit-icon">A1</div>
-                                    <div class="unit-details">
-                                        <h4>Unit A-101</h4>
-                                        <p>Building A, Floor 1</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>1 Bedroom</td>
-                            <td>
-                                <div class="tenant-info">
-                                    <div class="tenant-avatar">JS</div>
-                                    <div>John Smith</div>
-                                </div>
-                            </td>
-                            <td><span class="rent-amount">₱15,000</span></td>
-                            <td><span class="status-badge occupied">Occupied</span></td>
-                            <td>Jan 15, 2024</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="icon-btn view" title="View Details">👁</button>
-                                    <button class="icon-btn edit" title="Edit Unit" onclick="openEditUnitModal()">✏️</button>
-                                    <button class="icon-btn delete" title="Remove Unit" onclick="confirmDelete()">🗑️</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="unit-info">
-                                    <div class="unit-icon">A2</div>
-                                    <div class="unit-details">
-                                        <h4>Unit A-102</h4>
-                                        <p>Building A, Floor 1</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>Studio</td>
-                            <td>
-                                <div class="tenant-info">
-                                    <div class="tenant-avatar">MG</div>
-                                    <div>Maria Garcia</div>
-                                </div>
-                            </td>
-                            <td><span class="rent-amount">₱12,000</span></td>
-                            <td><span class="status-badge occupied">Occupied</span></td>
-                            <td>Mar 01, 2024</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="icon-btn view" title="View Details">👁</button>
-                                    <button class="icon-btn edit" title="Edit Unit" onclick="openEditUnitModal()">✏️</button>
-                                    <button class="icon-btn delete" title="Remove Unit" onclick="confirmDelete()">🗑️</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="unit-info">
-                                    <div class="unit-icon">B2</div>
-                                    <div class="unit-details">
-                                        <h4>Unit B-201</h4>
-                                        <p>Building B, Floor 2</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>2 Bedroom</td>
-                            <td>-</td>
-                            <td><span class="rent-amount">₱22,000</span></td>
-                            <td><span class="status-badge available">Available</span></td>
-                            <td>-</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="icon-btn view" title="View Details">👁</button>
-                                    <button class="icon-btn edit" title="Edit Unit" onclick="openEditUnitModal()">✏️</button>
-                                    <button class="icon-btn delete" title="Remove Unit" onclick="confirmDelete()">🗑️</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="unit-info">
-                                    <div class="unit-icon">B2</div>
-                                    <div class="unit-details">
-                                        <h4>Unit B-202</h4>
-                                        <p>Building B, Floor 2</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>1 Bedroom</td>
-                            <td>
-                                <div class="tenant-info">
-                                    <div class="tenant-avatar">JL</div>
-                                    <div>James Lee</div>
-                                </div>
-                            </td>
-                            <td><span class="rent-amount">₱16,500</span></td>
-                            <td><span class="status-badge occupied">Occupied</span></td>
-                            <td>Feb 10, 2024</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="icon-btn view" title="View Details">👁</button>
-                                    <button class="icon-btn edit" title="Edit Unit" onclick="openEditUnitModal()">✏️</button>
-                                    <button class="icon-btn delete" title="Remove Unit" onclick="confirmDelete()">🗑️</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="unit-info">
-                                    <div class="unit-icon">C3</div>
-                                    <div class="unit-details">
-                                        <h4>Unit C-301</h4>
-                                        <p>Building C, Floor 3</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>Studio</td>
-                            <td>-</td>
-                            <td><span class="rent-amount">₱11,500</span></td>
-                            <td><span class="status-badge maintenance">Maintenance</span></td>
-                            <td>-</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="icon-btn view" title="View Details">👁</button>
-                                    <button class="icon-btn edit" title="Edit Unit" onclick="openEditUnitModal()">✏️</button>
-                                    <button class="icon-btn delete" title="Remove Unit" onclick="confirmDelete()">🗑️</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="unit-info">
-                                    <div class="unit-icon">C3</div>
-                                    <div class="unit-details">
-                                        <h4>Unit C-302</h4>
-                                        <p>Building C, Floor 3</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>2 Bedroom</td>
-                            <td>
-                                <div class="tenant-info">
-                                    <div class="tenant-avatar">SK</div>
-                                    <div>Sarah Kim</div>
-                                </div>
-                            </td>
-                            <td><span class="rent-amount">₱20,000</span></td>
-                            <td><span class="status-badge occupied">Occupied</span></td>
-                            <td>Apr 05, 2024</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="icon-btn view" title="View Details">👁</button>
-                                    <button class="icon-btn edit" title="Edit Unit" onclick="openEditUnitModal()">✏️</button>
-                                    <button class="icon-btn delete" title="Remove Unit" onclick="confirmDelete()">🗑️</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="unit-info">
-                                    <div class="unit-icon">D4</div>
-                                    <div class="unit-details">
-                                        <h4>Unit D-401</h4>
-                                        <p>Building D, Floor 4</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>3 Bedroom</td>
-                            <td>
-                                <div class="tenant-info">
-                                    <div class="tenant-avatar">RB</div>
-                                    <div>Robert Brown</div>
-                                </div>
-                            </td>
-                            <td><span class="rent-amount">₱28,000</span></td>
-                            <td><span class="status-badge occupied">Occupied</span></td>
-                            <td>Jan 20, 2024</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="icon-btn view" title="View Details">👁</button>
-                                    <button class="icon-btn edit" title="Edit Unit" onclick="openEditUnitModal()">✏️</button>
-                                    <button class="icon-btn delete" title="Remove Unit" onclick="confirmDelete()">🗑️</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="unit-info">
-                                    <div class="unit-icon">D4</div>
-                                    <div class="unit-details">
-                                        <h4>Unit D-402</h4>
-                                        <p>Building D, Floor 4</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>Studio</td>
-                            <td>-</td>
-                            <td><span class="rent-amount">₱12,500</span></td>
-                            <td><span class="status-badge reserved">Reserved</span></td>
-                            <td>-</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="icon-btn view" title="View Details">👁</button>
-                                    <button class="icon-btn edit" title="Edit Unit" onclick="openEditUnitModal()">✏️</button>
-                                    <button class="icon-btn delete" title="Remove Unit" onclick="confirmDelete()">🗑️</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </main>
+      <div class="content-card" style="margin-top:8px">
+        <div class="card-header">
+          <h3 class="card-title" id="listTitle">All Units</h3>
+          <div class="view-toggle">
+            <button class="view-btn active" id="tableViewBtn">Table View</button>
+            <button class="view-btn" id="gridViewBtn">Grid View</button>
+          </div>
+        </div>
+
+        <div id="tableContainer">
+          <table class="units-table">
+            <thead>
+              <tr>
+                <th>Unit</th>
+                <th>Type</th>
+                <th>Tenant</th>
+                <th>Rent (₱)</th>
+                <th>Status</th>
+                <th>Move-in Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="unitsTbody">
+              <!-- rows generated dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="gridContainer" style="display:none;margin-top:12px">
+          <!-- optional grid view -->
+          <div id="gridItems" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="unitModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add Unit</h3>
+        <button id="closeModalBtn" class="link">Close</button>
+      </div>
+
+      <form id="unitForm">
+        <input type="hidden" id="unitId" />
+        <div class="form-row">
+          <div class="col">
+            <label for="unitNumber">Unit Number</label>
+            <input id="unitNumber" type="text" required placeholder="A-101">
+          </div>
+          <div class="col">
+            <label for="unitType">Type</label>
+            <select id="unitType">
+              <option value="studio">Studio</option>
+              <option value="1br">1 Bedroom</option>
+              <option value="2br">2 Bedroom</option>
+              <option value="3br">3 Bedroom</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="tenantName">Tenant Name (optional)</label>
+            <input id="tenantName" type="text" placeholder="John Smith">
+          </div>
+          <div class="col">
+            <label for="rentAmount">Rent (₱)</label>
+            <input id="rentAmount" type="number" min="0" placeholder="15000" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="status">Status</label>
+            <select id="status">
+              <option value="available">Available</option>
+              <option value="occupied">Occupied</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="reserved">Reserved</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="moveInDate">Move-in Date (optional)</label>
+            <input id="moveInDate" type="date">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <!-- Add/Edit Unit Modal -->
-    <div class="modal-overlay" id="unitModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modal
+  <script src="../js/unit-manage.js"></script>
+  </body>
+</html>

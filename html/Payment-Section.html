@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rentarium - Payments Management</title>
+  <link rel="stylesheet" href="../css/payment-section.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo">RENTARIUM</div>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="../html/Admin-Dashboard.html" class="nav-link"><span class="nav-icon">📊</span><span>Dashboard</span></a></li>
+          <li><a href="../html/Unit-Management.html" class="nav-link"><span class="nav-icon">🏢</span><span>Units Management</span></a></li>
+          <li><a href="../html/Tenants-Section.html" class="nav-link"><span class="nav-icon">👥</span><span>Tenants</span></a></li>
+          <li><a href="#" class="nav-link active"><span class="nav-icon">💳</span><span>Payments</span></a></li>
+          <li><a href="#" class="nav-link"><span class="nav-icon">📋</span><span>Requests</span></a></li>
+          <li><a href="#" class="nav-link"><span class="nav-icon">📈</span><span>Reports</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="header">
+        <div class="header-top">
+          <div class="header-title">
+            <h1>Payments Management</h1>
+            <p>Track rent payments, manage invoices, and monitor payment history.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary" id="exportCsvBtn">📥 Export</button>
+            <button class="btn btn-secondary" id="exportXmlBtn">🗎 Export XML</button>
+            <label class="btn btn-secondary" style="display:inline-block;cursor:pointer;">
+              🔁 Import XML
+              <input type="file" id="xmlFileInput" accept=".xml" style="display:none">
+            </label>
+            <button class="btn btn-primary" id="recordPaymentBtn">+ Record Payment</button>
+            <button class="btn" id="resetSampleBtn" title="Reset to sample data" style="background:#fff;border:1px solid #e5e7eb">Reset</button>
+          </div>
+        </div>
+
+        <div class="filters-section" style="margin-top:12px">
+          <div class="search-box">
+            <input id="searchInput" type="text" placeholder="🔍 Search by tenant name, unit, or transaction ID...">
+          </div>
+          <div class="filter-group" style="display:flex;gap:8px">
+            <select id="statusFilter" class="filter-select">
+              <option value="all">All Status</option>
+              <option value="paid">Paid</option>
+              <option value="pending">Pending</option>
+              <option value="overdue">Overdue</option>
+              <option value="partial">Partial</option>
+            </select>
+            <select id="monthFilter" class="filter-select">
+              <option value="all">All Months</option>
+              <option value="2025-01">January 2025</option>
+              <option value="2024-12">December 2024</option>
+              <option value="2024-11">November 2024</option>
+              <option value="2024-10">October 2024</option>
+            </select>
+            <select id="methodFilter" class="filter-select">
+              <option value="all">All Methods</option>
+              <option value="cash">Cash</option>
+              <option value="bank">Bank Transfer</option>
+              <option value="gcash">GCash</option>
+              <option value="check">Check</option>
+            </select>
+          </div>
+        </div>
+      </header>
+
+      <div class="stats-summary" id="statsSummary">
+        <!-- Stats inserted dynamically -->
+      </div>
+
+      <div class="content-card" style="margin-top:8px">
+        <div class="card-header">
+          <h3 class="card-title" id="listTitle">All Payments</h3>
+          <div class="view-toggle">
+            <button class="view-btn active" id="tableViewBtn">Table View</button>
+            <button class="view-btn" id="gridViewBtn">Grid View</button>
+          </div>
+        </div>
+
+        <div id="tableContainer">
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th>Transaction ID</th>
+                <th>Tenant</th>
+                <th>Unit</th>
+                <th>Amount (₱)</th>
+                <th>Due Date</th>
+                <th>Paid Date</th>
+                <th>Method</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="paymentsTbody">
+              <!-- rows generated dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="gridContainer" style="display:none;margin-top:12px">
+          <div id="gridItems" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Record Payment Modal -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle">Record Payment</h3>
+        <button id="closeModalBtn" class="link">Close</button>
+      </div>
+
+      <form id="paymentForm">
+        <input type="hidden" id="paymentId" />
+        
+        <h4 style="margin-bottom:12px;color:#1e293b">Payment Information</h4>
+        <div class="form-row">
+          <div class="col">
+            <label for="tenantName">Tenant Name</label>
+            <input id="tenantName" type="text" required placeholder="John Smith">
+          </div>
+          <div class="col">
+            <label for="unitNumber">Unit Number</label>
+            <input id="unitNumber" type="text" required placeholder="A-101">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="amount">Amount (₱)</label>
+            <input id="amount" type="number" min="0" step="0.01" required placeholder="15000">
+          </div>
+          <div class="col">
+            <label for="paymentMethod">Payment Method</label>
+            <select id="paymentMethod" required>
+              <option value="">Select Method</option>
+              <option value="cash">Cash</option>
+              <option value="bank">Bank Transfer</option>
+              <option value="gcash">GCash</option>
+              <option value="check">Check</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="dueDate">Due Date</label>
+            <input id="dueDate" type="date" required>
+          </div>
+          <div class="col">
+            <label for="paidDate">Paid Date (optional)</label>
+            <input id="paidDate" type="date">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="status">Status</label>
+            <select id="status">
+              <option value="pending">Pending</option>
+              <option value="paid">Paid</option>
+              <option value="partial">Partial</option>
+              <option value="overdue">Overdue</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="referenceNumber">Reference Number (optional)</label>
+            <input id="referenceNumber" type="text" placeholder="REF-123456">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col" style="flex:1">
+            <label for="notes">Notes (optional)</label>
+            <textarea id="notes" rows="3" placeholder="Additional payment details..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveBtn">Save Payment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Payment Details Modal -->
+  <div class="modal-overlay" id="detailsModal">
+    <div class="modal modal-large" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h3 id="detailsModalTitle">Payment Details</h3>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-secondary" id="printReceiptBtn">🖨️ Print Receipt</button>
+          <button id="closeDetailsBtn" class="link">Close</button>
+        </div>
+      </div>
+      <div id="detailsContent" style="padding:20px">
+        <!-- Details content inserted dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/payment-section.js"></script>
+</body>
+</html>

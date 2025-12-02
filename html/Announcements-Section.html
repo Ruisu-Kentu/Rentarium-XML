@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rentarium - Announcements Management</title>
+  <link rel="stylesheet" href="../css/announcements-section.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo">RENTARIUM</div>
+      <nav>
+         <ul class="nav-menu">
+           <li><a href="../html/Admin-Dashboard.html" class="nav-link"><span class="nav-icon">📊</span><span>Dashboard</span></a></li>
+          <li><a href="../html/Unit-Management.html" class="nav-link"><span class="nav-icon">🏢</span><span>Units Management</span></a></li>
+          <li><a href="../html/Tenants-Section.html" class="nav-link"><span class="nav-icon">👥</span><span>Tenants</span></a></li>
+          <li><a href="../html/Payments-Section.html" class="nav-link"><span class="nav-icon">💳</span><span>Payments</span></a></li>
+          <li><a href="../html/Announcements-Section.html" class="nav-link"><span class="nav-icon">📢</span><span>Announcements</span></a></li>
+          <li><a href="#" class="nav-link"><span class="nav-icon">📈</span><span>Reports</span></a></li>
+          <li><a href="" class="nav-link"><span class="nav-icon">➡️</span><span>Logout</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="header">
+        <div class="header-top">
+          <div class="header-title">
+            <h1>Announcements Management</h1>
+            <p>Create and manage announcements for all tenants.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-secondary" id="exportCsvBtn">📥 Export</button>
+            <button class="btn btn-secondary" id="exportXmlBtn">🗎 Export XML</button>
+            <label class="btn btn-secondary" style="display:inline-block;cursor:pointer;">
+              🔁 Import XML
+              <input type="file" id="xmlFileInput" accept=".xml" style="display:none">
+            </label>
+            <button class="btn btn-primary" id="createAnnouncementBtn">+ Create Announcement</button>
+            <button class="btn" id="resetSampleBtn" title="Reset to sample data" style="background:#fff;border:1px solid #e5e7eb">Reset</button>
+          </div>
+        </div>
+
+        <div class="filters-section" style="margin-top:12px">
+          <div class="search-box">
+            <input id="searchInput" type="text" placeholder="🔍 Search announcements by title or content...">
+          </div>
+          <div class="filter-group" style="display:flex;gap:8px">
+            <select id="categoryFilter" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="general">General</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="payment">Payment</option>
+              <option value="event">Event</option>
+              <option value="urgent">Urgent</option>
+            </select>
+            <select id="statusFilter" class="filter-select">
+              <option value="all">All Status</option>
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+        </div>
+      </header>
+
+      <div class="stats-summary" id="statsSummary">
+        <!-- Stats inserted dynamically -->
+      </div>
+
+      <div class="content-card" style="margin-top:8px">
+        <div class="card-header">
+          <h3 class="card-title" id="listTitle">All Announcements</h3>
+          <div class="view-toggle">
+            <button class="view-btn active" id="cardViewBtn">Card View</button>
+            <button class="view-btn" id="listViewBtn">List View</button>
+          </div>
+        </div>
+
+        <!-- Card View (Default) -->
+        <div id="cardContainer">
+          <div id="announcementCards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px"></div>
+        </div>
+
+        <!-- List View -->
+        <div id="listContainer" style="display:none">
+          <table class="announcements-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Posted Date</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="announcementsTbody">
+              <!-- rows generated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Create/Edit Announcement Modal -->
+  <div class="modal-overlay" id="announcementModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle">Create Announcement</h3>
+        <button id="closeModalBtn" class="link">Close</button>
+      </div>
+
+      <form id="announcementForm">
+        <input type="hidden" id="announcementId" />
+        
+        <div class="form-row">
+          <div class="col" style="flex:1">
+            <label for="title">Announcement Title <span style="color:#ef4444">*</span></label>
+            <input id="title" type="text" required placeholder="Enter announcement title">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="category">Category <span style="color:#ef4444">*</span></label>
+            <select id="category" required>
+              <option value="">Select Category</option>
+              <option value="general">📰 General</option>
+              <option value="maintenance">🔧 Maintenance</option>
+              <option value="payment">💳 Payment</option>
+              <option value="event">🎉 Event</option>
+              <option value="urgent">⚠️ Urgent</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="priority">Priority</label>
+            <select id="priority">
+              <option value="normal">Normal</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col" style="flex:1">
+            <label for="content">Content <span style="color:#ef4444">*</span></label>
+            <textarea id="content" rows="6" required placeholder="Write your announcement here..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="postedDate">Posted Date</label>
+            <input id="postedDate" type="date" required>
+          </div>
+          <div class="col">
+            <label for="expiryDate">Expiry Date (optional)</label>
+            <input id="expiryDate" type="date">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="status">Status</label>
+            <select id="status">
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+          <div class="col">
+            <label>
+              <input type="checkbox" id="pinned" style="width:auto;margin-right:8px">
+              Pin this announcement (shows at top)
+            </label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col" style="flex:1">
+            <label for="targetAudience">Target Audience</label>
+            <select id="targetAudience">
+              <option value="all">All Tenants</option>
+              <option value="occupied">Occupied Units Only</option>
+              <option value="specific">Specific Units (coming soon)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveBtn">Publish Announcement</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- View Announcement Modal -->
+  <div class="modal-overlay" id="viewModal">
+    <div class="modal modal-large" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h3 id="viewModalTitle">Announcement Details</h3>
+        <button id="closeViewBtn" class="link">Close</button>
+      </div>
+      <div id="viewContent" style="padding:20px">
+        <!-- Details content inserted dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/announcements.js"></script>
+</body>
+</html>
